@@ -1,0 +1,533 @@
+[
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 1,
+    "fields": {
+        "letter": "а",
+        "slug": "a",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 2,
+    "fields": {
+        "letter": "э",
+        "slug": "e",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 3,
+    "fields": {
+        "letter": "б",
+        "slug": "b",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 4,
+    "fields": {
+        "letter": "в",
+        "slug": "v",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 5,
+    "fields": {
+        "letter": "г",
+        "slug": "g",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 6,
+    "fields": {
+        "letter": "гу",
+        "slug": "gu",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 7,
+    "fields": {
+        "letter": "гъ",
+        "slug": "gi",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 8,
+    "fields": {
+        "letter": "гъу",
+        "slug": "giu",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 9,
+    "fields": {
+        "letter": "д",
+        "slug": "d",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 10,
+    "fields": {
+        "letter": "дж",
+        "slug": "dzh",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 11,
+    "fields": {
+        "letter": "дз",
+        "slug": "dz",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 12,
+    "fields": {
+        "letter": "е",
+        "slug": "ie",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 13,
+    "fields": {
+        "letter": "ё",
+        "slug": "yo",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 14,
+    "fields": {
+        "letter": "ж",
+        "slug": "zh",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 15,
+    "fields": {
+        "letter": "жь",
+        "slug": "zhi",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 16,
+    "fields": {
+        "letter": "з",
+        "slug": "z",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 17,
+    "fields": {
+        "letter": "и",
+        "slug": "i",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 18,
+    "fields": {
+        "letter": "й",
+        "slug": "j",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 19,
+    "fields": {
+        "letter": "к",
+        "slug": "k",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 20,
+    "fields": {
+        "letter": "ку",
+        "slug": "ku",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 21,
+    "fields": {
+        "letter": "кI",
+        "slug": "kI",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 22,
+    "fields": {
+        "letter": "кIу",
+        "slug": "kiu",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 23,
+    "fields": {
+        "letter": "къ",
+        "slug": "ki",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 24,
+    "fields": {
+        "letter": "къу",
+        "slug": "kiy",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 25,
+    "fields": {
+        "letter": "кхъ",
+        "slug": "kh",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 26,
+    "fields": {
+        "letter": "кхъу",
+        "slug": "khu",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 27,
+    "fields": {
+        "letter": "л",
+        "slug": "l",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 28,
+    "fields": {
+        "letter": "лъ",
+        "slug": "li",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 29,
+    "fields": {
+        "letter": "лI",
+        "slug": "lI",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 30,
+    "fields": {
+        "letter": "м",
+        "slug": "m",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 31,
+    "fields": {
+        "letter": "н",
+        "slug": "n",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 32,
+    "fields": {
+        "letter": "о",
+        "slug": "o",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 33,
+    "fields": {
+        "letter": "п",
+        "slug": "p",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 34,
+    "fields": {
+        "letter": "пI",
+        "slug": "pI",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 35,
+    "fields": {
+        "letter": "р",
+        "slug": "r",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 36,
+    "fields": {
+        "letter": "с",
+        "slug": "s",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 37,
+    "fields": {
+        "letter": "т",
+        "slug": "t",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 38,
+    "fields": {
+        "letter": "тI",
+        "slug": "tI",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 39,
+    "fields": {
+        "letter": "у",
+        "slug": "u",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 40,
+    "fields": {
+        "letter": "ф",
+        "slug": "f",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 41,
+    "fields": {
+        "letter": "фI",
+        "slug": "fI",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 42,
+    "fields": {
+        "letter": "х",
+        "slug": "h",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 43,
+    "fields": {
+        "letter": "ху",
+        "slug": "hu",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 44,
+    "fields": {
+        "letter": "хь",
+        "slug": "hi",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 45,
+    "fields": {
+        "letter": "хъ",
+        "slug": "hii",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 46,
+    "fields": {
+        "letter": "хъу",
+        "slug": "hiu",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 47,
+    "fields": {
+        "letter": "ц",
+        "slug": "c",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 48,
+    "fields": {
+        "letter": "цI",
+        "slug": "cI",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 49,
+    "fields": {
+        "letter": "ч",
+        "slug": "ch",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 50,
+    "fields": {
+        "letter": "ш",
+        "slug": "sh",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 51,
+    "fields": {
+        "letter": "щ",
+        "slug": "sch",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 52,
+    "fields": {
+        "letter": "щI",
+        "slug": "schI",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 53,
+    "fields": {
+        "letter": "ы",
+        "slug": "y",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 54,
+    "fields": {
+        "letter": "ъ",
+        "slug": "tz",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 55,
+    "fields": {
+        "letter": "ь",
+        "slug": "mz",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 56,
+    "fields": {
+        "letter": "ю",
+        "slug": "yu",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 57,
+    "fields": {
+        "letter": "я",
+        "slug": "ya",
+        "is_vowel": true
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 58,
+    "fields": {
+        "letter": "I",
+        "slug": "I",
+        "is_vowel": false
+    }
+},
+{
+    "model": "kab_alphabet.kabletter",
+    "pk": 59,
+    "fields": {
+        "letter": "Iу",
+        "slug": "Iu",
+        "is_vowel": false
+    }
+}
+]
