@@ -21,5 +21,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('kab_rus_dictionary.urls', namespace='kab_rus_dictionary')),
+    path('api/', include('kab_numerals.urls', namespace='kab_numerals')),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
