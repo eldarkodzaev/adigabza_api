@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import KabWord, Translation, Category
+from .models import KabWord, Translation, Category, PartOfSpeech
 
 
 class KabWordSerializer(serializers.ModelSerializer):
@@ -12,8 +12,23 @@ class KabWordSerializer(serializers.ModelSerializer):
         lookup_field = 'slug'
 
 
+class CategoryDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+        lookup_field = 'slug'
+
+
+class PartOfSpeechSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PartOfSpeech
+        fields = '__all__'
+
+
 class KabRusDictionarySerializer(serializers.ModelSerializer):
     word = KabWordSerializer(read_only=True)
+    categories = CategoryDetailSerializer(many=True)
 
     class Meta:
         model = Translation
@@ -21,6 +36,8 @@ class KabRusDictionarySerializer(serializers.ModelSerializer):
 
 
 class KabTranslationSerializer(serializers.ModelSerializer):
+    categories = CategoryDetailSerializer(many=True)
+    part_of_speech = PartOfSpeechSerializer()
 
     class Meta:
         model = Translation
@@ -33,10 +50,3 @@ class KabWordDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = KabWord
         fields = ['word', 'borrowed_from', 'translations']
-
-
-class CategoryDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = '__all__'
-        lookup_field = 'slug'
