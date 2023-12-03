@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('kab_rus_dictionary.urls', namespace='kab_rus_dictionary')),
     path('api/', include('kab_numerals.urls', namespace='kab_numerals')),
+    path('api/', include('kab_alphabet.urls', namespace='kab_alphabet')),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
