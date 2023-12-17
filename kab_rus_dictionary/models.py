@@ -38,7 +38,7 @@ class Translation(models.Model):
     Модель хранящая перевод, описание и прочую информацию о слове
     """
     word = models.ForeignKey(KabWord, on_delete=models.CASCADE, related_name='translations')
-    categories = models.ManyToManyField('Category')
+    categories = models.ManyToManyField('Category', blank=True, default=None)
     part_of_speech = models.ForeignKey('PartOfSpeech', on_delete=models.SET_DEFAULT, related_name='words', null=True,
                                        blank=True, default=None)
     source = models.ForeignKey('Source', on_delete=models.SET_DEFAULT, related_name='words', null=True, blank=True,
@@ -78,7 +78,8 @@ class Category(MPTTModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('kab_rus_dictionary:category_detail', kwargs={'slug': self.slug})
+        url = reverse('kab_rus_dictionary:category', kwargs={'slug': self.slug})
+        return url[url.find('kab-rus-dictionary') - 1:]
 
 
 class PartOfSpeech(models.Model):

@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse
+from .settings import URL
 
 
 class KabLetter(models.Model):
@@ -14,4 +14,4 @@ class KabLetter(models.Model):
         return self.letter
 
     def get_absolute_url(self):
-        return reverse('kab_alphabet:letter', kwargs={'pk': self.pk})
+        return f'/{URL}{self.slug}/'

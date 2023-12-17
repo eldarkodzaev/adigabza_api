@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import KabAlphabetAPIListView, KabLetterAPIDetailView
 
-app_name = 'kab_numerals'
+app_name = 'kab_alphabet'
 
 urlpatterns = [
     path('kab-alphabet/', KabAlphabetAPIListView.as_view(), name='kab_alphabet'),
