@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .settings import API_INFO
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('kab_rus_dictionary.urls', namespace='kab_rus_dictionary')),
+    path(f"{API_INFO['path']}", include('kab_rus_dictionary.urls', namespace='kab_rus_dictionary')),
+    path(f"{API_INFO['path']}", include('kab_numerals.urls', namespace='kab_numerals')),
+    path(f"{API_INFO['path']}", include('kab_alphabet.urls', namespace='kab_alphabet')),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
