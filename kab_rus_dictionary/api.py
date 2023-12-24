@@ -52,4 +52,4 @@ class CategoryAPIView(generics.ListAPIView):
 
 class CategoriesListAPIView(generics.ListAPIView):
     serializer_class = CategorySerializer
-    queryset = Category.objects.all()
+    queryset = Category.objects.viewable()

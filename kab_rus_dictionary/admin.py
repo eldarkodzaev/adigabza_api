@@ -4,16 +4,22 @@ from django.template.defaultfilters import truncatewords
 from .models import KabWord, Translation, Category, PartOfSpeech, Source, Language
 
 
+class TranslationInline(admin.StackedInline):
+    model = Translation
+
+
 @admin.register(KabWord)
 class KabWordAdmin(admin.ModelAdmin):
     list_display = ['word', 'slug', 'letter', 'borrowed_from']
     list_filter = ['letter']
     search_fields = ['word']
+    inlines = [TranslationInline]
 
 
 @admin.register(Translation)
 class TranslationAdmin(admin.ModelAdmin):
     list_display = ['word', 'get_translation', 'get_description']
+    search_fields = ['word__word']
 
     def get_translation(self, obj):
         return truncatewords(obj.translation, 10)

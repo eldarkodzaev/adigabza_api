@@ -1,6 +1,8 @@
 from django.db import models
+from django.template.defaultfilters import truncatewords
 from django.urls import reverse
 from mptt.fields import TreeForeignKey
+from mptt.managers import TreeManager
 from mptt.models import MPTTModel
 
 from kab_alphabet.models import KabLetter
@@ -37,26 +39,33 @@ class Translation(models.Model):
     """
     Модель хранящая перевод, описание и прочую информацию о слове
     """
+    translation = models.TextField()
+    description = models.TextField(null=True, blank=True)
+
     word = models.ForeignKey(KabWord, on_delete=models.CASCADE, related_name='translations')
     categories = models.ManyToManyField('Category', blank=True, default=None)
     part_of_speech = models.ForeignKey('PartOfSpeech', on_delete=models.SET_DEFAULT, related_name='words', null=True,
                                        blank=True, default=None)
     source = models.ForeignKey('Source', on_delete=models.SET_DEFAULT, related_name='words', null=True, blank=True,
                                default=None)
-    translation = models.TextField()
-    description = models.TextField(null=True, blank=True)
 
     class Meta:
         ordering = ('word__letter__id', 'word',)
 
     def __str__(self):
-        return self.word.word
+        return f"{self.word.word} | {truncatewords(self.translation, 3)}"
 
     def save(self, *args, **kwargs):
         self.translation = normalize_string(self.translation)
         if self.description:
             self.description = normalize_string(self.description)
         super().save(*args, **kwargs)
+
+
+class CategoryManager(TreeManager):
+    def viewable(self):
+        queryset = self.get_queryset().filter(level=0)
+        return queryset
 
 
 class Category(MPTTModel):
@@ -66,6 +75,7 @@ class Category(MPTTModel):
     name = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, db_index=True)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    objects = CategoryManager()
 
     class MPTTMeta:
         order_insertion_by = ('name',)

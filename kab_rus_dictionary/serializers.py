@@ -12,12 +12,19 @@ class KabWordSerializer(serializers.ModelSerializer):
         lookup_field = 'slug'
 
 
+class RecursiveField(serializers.Serializer):
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        return serializer.data
+
+
 class CategorySerializer(serializers.ModelSerializer):
     url = serializers.URLField(source='get_absolute_url', read_only=True)
+    children = RecursiveField(many=True)
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'lft', 'rght', 'tree_id', 'level', 'parent', 'url']
+        fields = ['id', 'name', 'slug', 'lft', 'rght', 'tree_id', 'level', 'parent', 'url', 'children']
         lookup_field = 'slug'
 
 
