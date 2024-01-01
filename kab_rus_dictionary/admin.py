@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.template.defaultfilters import truncatewords
 
-from .models import KabWord, Translation, Category, PartOfSpeech, Source, Language
+from .models import KabWord, Translation, Category, PartOfSpeech, Source, Language, Life
 
 
 class TranslationInline(admin.StackedInline):
@@ -14,6 +14,7 @@ class KabWordAdmin(admin.ModelAdmin):
     list_filter = ['letter']
     search_fields = ['word']
     inlines = [TranslationInline]
+    prepopulated_fields = {'slug': ('word',)}
 
 
 @admin.register(Translation)
@@ -47,3 +48,14 @@ class SourceAdmin(admin.ModelAdmin):
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
     list_display = ['name']
+
+
+@admin.register(Life)
+class LifeAdmin(admin.ModelAdmin):
+    list_display = ['ages', 'get_description_rus', 'get_description_kab']
+
+    def get_description_rus(self, obj):
+        return truncatewords(obj.description_rus, 10)
+
+    def get_description_kab(self, obj):
+        return truncatewords(obj.description_kab, 10)

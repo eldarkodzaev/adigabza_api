@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import IntegerRangeField
 from django.template.defaultfilters import truncatewords
 from django.urls import reverse
 from mptt.fields import TreeForeignKey
@@ -74,6 +75,8 @@ class Category(MPTTModel):
     """
     name = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, db_index=True)
+    translation_kab = models.CharField(max_length=255, null=True, blank=True, default=None)
+    description = models.TextField(null=True, blank=True, default=None)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     objects = CategoryManager()
 
@@ -134,3 +137,15 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Life(models.Model):
+    """
+    Как адыги делили человеческую жизнь
+    """
+    ages = IntegerRangeField()
+    description_kab = models.TextField()
+    description_rus = models.TextField()
+
+    def __str__(self):
+        return f"{self.ages}"
