@@ -37,6 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'drf_api_logger',
+    'rest_framework',
+    'debug_toolbar',
+
+    'kab_rus_dictionary.apps.KabRusDictionaryConfig',
+    'kab_numerals.apps.KabNumeralsConfig',
+    'kab_alphabet.apps.KabAlphabetConfig',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +55,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'adigabza_api.urls'
@@ -76,8 +87,12 @@ WSGI_APPLICATION = 'adigabza_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'adigabza',
+        'USER': 'adigabza_admin',
+        'PASSWORD': 'adigabza',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -106,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -122,3 +137,27 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
+
+API_INFO = {
+    'version': 1,
+    'path': 'api/v1/',
+}
+
+# DRF API logger settings
+
+DRF_API_LOGGER_DATABASE = True
+DRF_API_LOGGER_TIMEDELTA = 180  # Europe/Moscow
+
+
+# Cache settings
+
+CACHE_24_HOURS = 60 * 60 * 24

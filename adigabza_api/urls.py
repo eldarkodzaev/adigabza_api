@@ -15,8 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from .settings import API_INFO
+
+router = routers.DefaultRouter()
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(f"{API_INFO['path']}", include('kab_rus_dictionary.urls', namespace='kab_rus_dictionary')),
+    path(f"{API_INFO['path']}", include('kab_numerals.urls', namespace='kab_numerals')),
+    path(f"{API_INFO['path']}", include('kab_alphabet.urls', namespace='kab_alphabet')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
