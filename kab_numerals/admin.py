@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import KabNaturalNumber
+
+
+@admin.register(KabNaturalNumber)
+class KabNaturalNumberAdmin(admin.ModelAdmin):
+    list_display = ['number', 'translate_decimal', 'translate_twentieth']

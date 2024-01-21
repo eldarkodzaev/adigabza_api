@@ -3,8 +3,8 @@ from django.contrib.postgres.fields import IntegerRangeField
 from django.template.defaultfilters import truncatewords
 
 from rest_framework.reverse import reverse
-from mptt.fields import TreeForeignKey
 
+from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
 from kab_alphabet.models import KabLetter

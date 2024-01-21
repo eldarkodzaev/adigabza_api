@@ -4,9 +4,9 @@ from django.conf import settings
 
 from rest_framework import generics
 
-from kab_numerals.models import KabNaturalNumber
-from kab_numerals.pagination import KabNumeralsPagination
-from kab_numerals.serializers import KabNaturalNumberSerializer
+from .models import KabNaturalNumber
+from .pagination import KabNumeralsPagination
+from .serializers import KabNaturalNumberSerializer
 
 
 class KabNumeralsAPIListView(generics.ListAPIView):
