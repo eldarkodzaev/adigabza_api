@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
 from .settings import API_INFO
+
+router = routers.DefaultRouter()
 
 
 urlpatterns = [

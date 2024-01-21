@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.postgres.fields import IntegerRangeField
 from django.template.defaultfilters import truncatewords
-from django.urls import reverse
+
+from rest_framework.reverse import reverse
 from mptt.fields import TreeForeignKey
-from mptt.managers import TreeManager
+
 from mptt.models import MPTTModel
 
 from kab_alphabet.models import KabLetter
@@ -23,11 +24,11 @@ class KabWord(models.Model):
     class Meta:
         ordering = ('letter__id', 'word',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.word
 
-    def get_absolute_url(self):
-        url = reverse('kab_rus_dictionary:kab_word_detail', kwargs={'slug': self.slug})
+    def get_absolute_url(self) -> str:
+        url = reverse('kab_rus_dictionary:kab_rus_dictionary-detail', kwargs={'slug': self.slug})
         return url[url.find('kab-rus-dictionary') - 1:]
 
     def save(self, *args, **kwargs):
@@ -53,7 +54,7 @@ class Translation(models.Model):
     class Meta:
         ordering = ('word__letter__id', 'word',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.word.word} | {truncatewords(self.translation, 3)}"
 
     def save(self, *args, **kwargs):
@@ -61,12 +62,6 @@ class Translation(models.Model):
         if self.description:
             self.description = normalize_string(self.description)
         super().save(*args, **kwargs)
-
-
-class CategoryManager(TreeManager):
-    def viewable(self):
-        queryset = self.get_queryset().filter(level=0)
-        return queryset
 
 
 class Category(MPTTModel):
@@ -78,7 +73,6 @@ class Category(MPTTModel):
     translation_kab = models.CharField(max_length=255, null=True, blank=True, default=None)
     description = models.TextField(null=True, blank=True, default=None)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-    objects = CategoryManager()
 
     class MPTTMeta:
         order_insertion_by = ('name',)
@@ -87,11 +81,11 @@ class Category(MPTTModel):
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
-        url = reverse('kab_rus_dictionary:category', kwargs={'slug': self.slug})
+    def get_absolute_url(self) -> str:
+        url = reverse('kab_rus_dictionary:categories-detail', kwargs={'slug': self.slug})
         return url[url.find('kab-rus-dictionary') - 1:]
 
 
@@ -106,7 +100,7 @@ class PartOfSpeech(models.Model):
         verbose_name = 'part of speech'
         verbose_name_plural = 'parts of speech'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -122,7 +116,7 @@ class Source(models.Model):
     class Meta:
         ordering = ('name',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -135,7 +129,7 @@ class Language(models.Model):
     class Meta:
         ordering = ('name',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -147,5 +141,5 @@ class Life(models.Model):
     description_kab = models.TextField()
     description_rus = models.TextField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.ages}"
