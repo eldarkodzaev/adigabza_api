@@ -1,9 +1,12 @@
-from django.urls import path
-from .views import KabAlphabetAPIListView, KabLetterAPIDetailView
+from django.urls import path, include
+from rest_framework import routers
+from .views import KabAlphabetViewset
 
 app_name = 'kab_alphabet'
 
+router = routers.DefaultRouter()
+router.register(r'kab-alphabet', KabAlphabetViewset, basename='kab_alphabet')
+
 urlpatterns = [
-    path('kab-alphabet/', KabAlphabetAPIListView.as_view(), name='kab_alphabet'),
-    path('kab-alphabet/<slug:slug>/', KabLetterAPIDetailView.as_view(), name='kab_alphabet_detail'),
+    path('', include(router.urls))
 ]
