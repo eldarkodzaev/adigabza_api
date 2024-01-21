@@ -1,3 +1,7 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.conf import settings
+
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 
@@ -15,6 +19,10 @@ class KabRusDictionaryViewSet(viewsets.ReadOnlyModelViewSet):
             'translations', 'translations__part_of_speech', 'translations__source')
     serializer_class = KabWordSerializer
     lookup_field = 'slug'
+
+    @method_decorator(cache_page(settings.CACHE_24_HOURS))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
     
     def list(self, request, *args, **kwargs):
         if word := request.GET.get('word'):
@@ -31,15 +39,23 @@ class KabRusDictionaryViewSet(viewsets.ReadOnlyModelViewSet):
 
 class KabRusDictionaryAllAPIView(generics.ListAPIView):
     queryset = KabWord.objects.select_related(
-        'letter').prefetch_related(
+        'letter', 'borrowed_from').prefetch_related(
             'translations', 'translations__part_of_speech', 'translations__source')
     serializer_class = KabWordSerializer
     pagination_class = None
     lookup_field = 'slug'
 
+    @method_decorator(cache_page(settings.CACHE_24_HOURS))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class KabRusDictionaryTelegramAPIListView(generics.ListAPIView):
     serializer_class = KabWordTelegramSerializer
+
+    @method_decorator(cache_page(settings.CACHE_24_HOURS))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
     
     def get_queryset(self):
         if word := self.request.GET.get('word'):
@@ -50,6 +66,10 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.filter(level=0).prefetch_related('children__children__children__children')
     serializer_class = CategorySerializer
     lookup_field = 'slug'
+
+    @method_decorator(cache_page(settings.CACHE_24_HOURS))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
         try:
