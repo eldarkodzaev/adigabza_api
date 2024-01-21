@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import KabLetter
+
+
+@admin.register(KabLetter)
+class KabLetterAdmin(admin.ModelAdmin):
+    list_display = ['letter', 'slug', 'is_vowel']

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import KabNumeralsAPIListView, KabNumeralAPIDetailView
+from .api import KabNumeralsAPIListView, KabNumeralAPIDetailView
 
 app_name = 'kab_numerals'
 

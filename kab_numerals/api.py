@@ -1,13 +1,21 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.conf import settings
+
 from rest_framework import generics
 
-from kab_numerals.models import KabNaturalNumber
-from kab_numerals.pagination import KabNumeralsPagination
-from kab_numerals.serializers import KabNaturalNumberSerializer
+from .models import KabNaturalNumber
+from .pagination import KabNumeralsPagination
+from .serializers import KabNaturalNumberSerializer
 
 
 class KabNumeralsAPIListView(generics.ListAPIView):
     serializer_class = KabNaturalNumberSerializer
     pagination_class = KabNumeralsPagination
+
+    @method_decorator(cache_page(settings.CACHE_24_HOURS))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)    
 
     def get_queryset(self):
         params = self._get_params()
@@ -40,3 +48,7 @@ class KabNumeralsAPIListView(generics.ListAPIView):
 class KabNumeralAPIDetailView(generics.RetrieveAPIView):
     serializer_class = KabNaturalNumberSerializer
     queryset = KabNaturalNumber.objects.all()
+
+    @method_decorator(cache_page(settings.CACHE_24_HOURS))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)

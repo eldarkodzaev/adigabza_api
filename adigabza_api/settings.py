@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'drf_api_logger',
     'rest_framework',
     'debug_toolbar',
 
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
@@ -148,3 +151,13 @@ API_INFO = {
     'version': 1,
     'path': 'api/v1/',
 }
+
+# DRF API logger settings
+
+DRF_API_LOGGER_DATABASE = True
+DRF_API_LOGGER_TIMEDELTA = 180  # Europe/Moscow
+
+
+# Cache settings
+
+CACHE_24_HOURS = 60 * 60 * 24
