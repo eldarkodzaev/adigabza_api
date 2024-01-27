@@ -10,22 +10,33 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
+
 from pathlib import Path
+from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# Take environment variables from .env file
+env = Env(
+    DEBUG=(bool, False),
+)
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s6=f$@sgcts6081_-1ekc4sku+m3!=91t%w-rl4q1y#qb14$!b'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -40,12 +51,14 @@ INSTALLED_APPS = [
 
     'drf_api_logger',
     'rest_framework',
-    'debug_toolbar',
 
     'kab_rus_dictionary.apps.KabRusDictionaryConfig',
     'kab_numerals.apps.KabNumeralsConfig',
     'kab_alphabet.apps.KabAlphabetConfig',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,8 +70,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
 
 ROOT_URLCONF = 'adigabza_api.urls'
 
@@ -86,14 +101,7 @@ WSGI_APPLICATION = 'adigabza_api.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'adigabza',
-        'USER': 'adigabza_admin',
-        'PASSWORD': 'adigabza',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    'default': env.db(),
 }
 
 
@@ -119,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -147,10 +155,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-API_INFO = {
-    'version': 1,
-    'path': 'api/v1/',
-}
+API_INFO = env.json('API_INFO')
+
 
 # DRF API logger settings
 
@@ -160,4 +166,4 @@ DRF_API_LOGGER_TIMEDELTA = 180  # Europe/Moscow
 
 # Cache settings
 
-CACHE_24_HOURS = 60 * 60 * 24
+CACHE_24_HOURS = 60 * 60 * 2
