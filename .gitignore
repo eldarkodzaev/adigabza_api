@@ -163,3 +163,7 @@ cython_debug/
 
 # VSCode
 .vscode/
+
+# Production
+entrypoint.prod.sh
+Dockerfile.prod

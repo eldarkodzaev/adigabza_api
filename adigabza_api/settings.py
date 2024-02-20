@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Take environment variables from .env file
 env = Env(
-    DEBUG=(bool, False),
+    DEBUG=(bool, True),
 )
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
