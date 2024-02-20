@@ -8,7 +8,9 @@ django-mptt==0.15.0
 djangorestframework==3.14.0
 djangorestframework-recursive==0.1.2
 drf_api_logger==1.1.15
-psycopg2==2.9.9
+gunicorn==21.2.0
+packaging==23.2
+psycopg2-binary==2.9.9
 pytils==0.4.1
 pytz==2023.3.post1
 six==1.16.0
