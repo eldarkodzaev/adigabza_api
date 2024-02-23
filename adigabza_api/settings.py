@@ -155,7 +155,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-API_INFO = env.json('API_INFO')
+API_VERSION = env('API_VERSION')
+API_PATH = env('API_PATH')
 
 
 # DRF API logger settings
