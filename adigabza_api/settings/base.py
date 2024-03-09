@@ -16,13 +16,11 @@ from pathlib import Path
 from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Take environment variables from .env file
-env = Env(
-    DEBUG=(bool, True),
-)
+env = Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
@@ -31,12 +29,6 @@ env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
-
-if not DEBUG:
-    ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -57,9 +49,6 @@ INSTALLED_APPS = [
     'kab_alphabet.apps.KabAlphabetConfig',
 ]
 
-if DEBUG:
-    INSTALLED_APPS += ['debug_toolbar']
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,9 +60,6 @@ MIDDLEWARE = [
 
     'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
-
-if DEBUG:
-    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
 
 ROOT_URLCONF = 'adigabza_api.urls'
 
@@ -146,10 +132,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
-
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100
@@ -168,3 +150,54 @@ DRF_API_LOGGER_TIMEDELTA = 180  # Europe/Moscow
 # Cache settings
 
 CACHE_24_HOURS = 60 * 60 * 2
+
+
+# Logging
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "warnings_and_errors.log"
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}

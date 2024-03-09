@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .settings import API_PATH
+from .settings.base import API_PATH
 
 
 urlpatterns = [
