@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from .settings.base import API_PATH
 
 
@@ -24,5 +25,7 @@ urlpatterns = [
     path(API_PATH, include('kab_rus_dictionary.urls', namespace='kab_rus_dictionary')),
     path(API_PATH, include('kab_numerals.urls', namespace='kab_numerals')),
     path(API_PATH, include('kab_alphabet.urls', namespace='kab_alphabet')),
-    path("__debug__/", include("debug_toolbar.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))

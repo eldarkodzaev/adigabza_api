@@ -11,15 +11,39 @@ from kab_alphabet.models import KabLetter
 from .utils import normalize_string
 
 
+class Dialect(models.Model):
+    """
+    Диалект (говор) к которому относится слово.
+    """
+    dialect_rus = models.CharField(max_length=20)
+    dialect_kab = models.CharField(max_length=30)
+
+    class Meta:
+        ordering = ('dialect_rus',)
+        unique_together = ('dialect_rus', 'dialect_kab',)
+
+    def __str__(self) -> str:
+        return self.dialect_rus
+
+    @classmethod
+    def get_default_dialect(cls):
+        dialect, created = cls.objects.get_or_create(
+            dialect_rus='баксанский', dialect_kab='бахъсэн')
+        return dialect.pk
+
+
 class KabWord(models.Model):
     """
     Модель слова
     """
     word = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, allow_unicode=True)
     letter = models.ForeignKey(KabLetter, on_delete=models.PROTECT, related_name='words')
-    borrowed_from = models.ForeignKey('Language', on_delete=models.SET_DEFAULT, null=True, blank=True, default=None,
-                                      related_name='words')
+    borrowed_from = models.ForeignKey('Language', on_delete=models.SET_DEFAULT,
+                                      null=True, blank=True, default=None, related_name='words')
+    dialect = models.ForeignKey('Dialect',
+                                on_delete=models.SET_DEFAULT, default=Dialect.get_default_dialect)
+    synonyms = models.ManyToManyField('self', blank=True)
 
     class Meta:
         ordering = ('letter__id', 'word',)
@@ -46,10 +70,10 @@ class Translation(models.Model):
 
     word = models.ForeignKey(KabWord, on_delete=models.CASCADE, related_name='translations')
     categories = models.ManyToManyField('Category', blank=True, default=None)
-    part_of_speech = models.ForeignKey('PartOfSpeech', on_delete=models.SET_DEFAULT, related_name='words', null=True,
-                                       blank=True, default=None)
-    source = models.ForeignKey('Source', on_delete=models.SET_DEFAULT, related_name='words', null=True, blank=True,
-                               default=None)
+    part_of_speech = models.ForeignKey('PartOfSpeech', on_delete=models.SET_DEFAULT,
+                                       related_name='words', null=True, blank=True, default=None)
+    source = models.ForeignKey('Source', on_delete=models.SET_DEFAULT,
+                               related_name='words', null=True, blank=True, default=None)
 
     class Meta:
         ordering = ('word__letter__id', 'word',)
@@ -72,7 +96,8 @@ class Category(MPTTModel):
     slug = models.SlugField(max_length=100, db_index=True)
     translation_kab = models.CharField(max_length=255, null=True, blank=True, default=None)
     description = models.TextField(null=True, blank=True, default=None)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    parent = TreeForeignKey('self', on_delete=models.CASCADE,
+                            null=True, blank=True, related_name='children')
 
     class MPTTMeta:
         order_insertion_by = ('name',)

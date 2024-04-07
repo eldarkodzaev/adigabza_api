@@ -1,26 +1,29 @@
 from django.contrib import admin
 from django.template.defaultfilters import truncatewords
 
-from .models import KabWord, Translation, Category, PartOfSpeech, Source, Language, Life
+from .models import KabWord, Translation, Category, PartOfSpeech, Source, Language, Life, Dialect
 
 
 class TranslationInline(admin.StackedInline):
     model = Translation
+    filter_horizontal = ['categories']
 
 
 @admin.register(KabWord)
 class KabWordAdmin(admin.ModelAdmin):
-    list_display = ['word', 'slug', 'letter', 'borrowed_from']
+    list_display = ['word', 'slug', 'letter', 'borrowed_from', 'dialect']
     list_filter = ['letter']
     search_fields = ['word']
     inlines = [TranslationInline]
     prepopulated_fields = {'slug': ('word',)}
+    filter_horizontal = ['synonyms']
 
 
 @admin.register(Translation)
 class TranslationAdmin(admin.ModelAdmin):
     list_display = ['word', 'get_translation', 'get_description']
     search_fields = ['word__word']
+    filter_horizontal = ['categories']
 
     def get_translation(self, obj):
         return truncatewords(obj.translation, 10)
@@ -59,3 +62,8 @@ class LifeAdmin(admin.ModelAdmin):
 
     def get_description_kab(self, obj):
         return truncatewords(obj.description_kab, 10)
+
+
+@admin.register(Dialect)
+class DialectAdmin(admin.ModelAdmin):
+    list_display = ['dialect_rus', 'dialect_kab']
