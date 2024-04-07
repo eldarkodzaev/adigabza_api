@@ -1,6 +1,6 @@
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from django.conf import settings
+from adigabza_api.settings.base import CACHE_24_HOURS
 
 from rest_framework import generics
 
@@ -13,7 +13,7 @@ class KabNumeralsAPIListView(generics.ListAPIView):
     serializer_class = KabNaturalNumberSerializer
     pagination_class = KabNumeralsPagination
 
-    @method_decorator(cache_page(settings.CACHE_24_HOURS))
+    @method_decorator(cache_page(CACHE_24_HOURS))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)    
 
@@ -49,6 +49,6 @@ class KabNumeralAPIDetailView(generics.RetrieveAPIView):
     serializer_class = KabNaturalNumberSerializer
     queryset = KabNaturalNumber.objects.all()
 
-    @method_decorator(cache_page(settings.CACHE_24_HOURS))
+    @method_decorator(cache_page(CACHE_24_HOURS))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
