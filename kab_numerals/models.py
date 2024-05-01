@@ -7,7 +7,6 @@ class KabNaturalNumber(models.Model):
     """
     number = models.PositiveIntegerField(primary_key=True)
     translate_decimal = models.CharField(max_length=128)  # в 10-й системе счисления
-    translate_twentieth = models.CharField(max_length=128, null=True, default=None)  # в 20-й системе счисления
 
     class Meta:
         ordering = ('number',)

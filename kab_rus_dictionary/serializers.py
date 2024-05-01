@@ -94,6 +94,7 @@ class TranslationWithKabWordSerializer(serializers.ModelSerializer):
 
 class KabWordWithCategorySerializer(serializers.ModelSerializer):
     translations = TranslationWithCategorySerializer(read_only=True, many=Translation)
+    borrowed_from = KabWordBorrowedFromSerializer(read_only=True)
     
     class Meta:
         model = KabWord

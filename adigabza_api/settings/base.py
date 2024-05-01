@@ -33,6 +33,12 @@ SECRET_KEY = env('SECRET_KEY')
 
 # Application definition
 
+SPECIFIC_APPS = [
+    'kab_rus_dictionary.apps.KabRusDictionaryConfig',
+    'kab_numerals.apps.KabNumeralsConfig',
+    'kab_alphabet.apps.KabAlphabetConfig'
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,11 +49,7 @@ INSTALLED_APPS = [
 
     'drf_api_logger',
     'rest_framework',
-
-    'kab_rus_dictionary.apps.KabRusDictionaryConfig',
-    'kab_numerals.apps.KabNumeralsConfig',
-    'kab_alphabet.apps.KabAlphabetConfig',
-]
+] + SPECIFIC_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
