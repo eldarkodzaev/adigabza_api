@@ -8,7 +8,7 @@ from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
 from kab_alphabet.models import KabLetter
-from .utils import normalize_string
+from .textutils import normalize_string
 
 
 class Dialect(models.Model):
