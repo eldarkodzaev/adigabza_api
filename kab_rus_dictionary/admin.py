@@ -1,7 +1,12 @@
 from django.contrib import admin
 from django.template.defaultfilters import truncatewords
 
-from .models import KabWord, Translation, Category, PartOfSpeech, Source, Language, Life, Dialect
+from .models import (
+    KabWord, Translation, Category,
+    PartOfSpeech, Source, Language,
+    Life, Dialect, Proverb,
+    ExampleOfUseKabWord, KabWordRelatedPhrases
+)
 
 
 class TranslationInline(admin.StackedInline):
@@ -67,3 +72,20 @@ class LifeAdmin(admin.ModelAdmin):
 @admin.register(Dialect)
 class DialectAdmin(admin.ModelAdmin):
     list_display = ['dialect_rus', 'dialect_kab']
+
+
+@admin.register(Proverb)
+class ProverbAdmin(admin.ModelAdmin):
+    list_display = ['word', 'text']
+
+
+@admin.register(ExampleOfUseKabWord)
+class ExampleOfUseKabWordAdmin(admin.ModelAdmin):
+    list_display = ['word', 'example', 'translation']
+    autocomplete_fields = ['word']
+
+
+@admin.register(KabWordRelatedPhrases)
+class KabWordRelatedPhrases(admin.ModelAdmin):
+    list_display = ['word', 'phrase']
+    autocomplete_fields = ['word']

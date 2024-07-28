@@ -150,6 +150,7 @@ class Language(models.Model):
     Модель языка. Используется для указания факта заимствования слова из этого языка.
     """
     name = models.CharField(max_length=30)
+    slug = models.SlugField(max_length=40)
 
     class Meta:
         ordering = ('name',)
@@ -168,3 +169,39 @@ class Life(models.Model):
 
     def __str__(self) -> str:
         return f"{self.ages}"
+
+
+class Proverb(models.Model):
+    """
+    Пословица
+    """
+    word = models.ForeignKey('KabWord', on_delete=models.SET_NULL, null=True, blank=True)
+    text = models.TextField()
+    translation = models.TextField()
+
+    def __str__(self) -> str:
+        return truncatewords(self.text, 3)
+
+
+class ExampleOfUseKabWord(models.Model):
+    """
+    Пример употребления слова KabWord
+    """
+    word = models.ForeignKey('KabWord', on_delete=models.CASCADE, related_name='examples')
+    example = models.CharField(max_length=255)
+    translation = models.TextField()
+
+    def __str__(self) -> str:
+        return self.word.word
+
+
+class KabWordRelatedPhrases(models.Model):
+    """
+    Связанные с KabWord фразы
+    """
+    phrase = models.CharField(max_length=100)
+    translation = models.TextField()
+    word = models.ForeignKey('KabWord', on_delete=models.CASCADE, related_name='phrases')
+
+    def __str__(self) -> str:
+        return self.word.word

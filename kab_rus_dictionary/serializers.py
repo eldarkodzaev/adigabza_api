@@ -26,7 +26,7 @@ class SourceSerializer(serializers.ModelSerializer):
 class TranslationSerializer(serializers.ModelSerializer):
     part_of_speech = PartOfSpeechSerializer(read_only=True)
     source = SourceSerializer(read_only=True)
-    
+
     class Meta:
         model = Translation
         fields = ['translation', 'description', 'part_of_speech', 'source']
@@ -95,7 +95,7 @@ class TranslationWithKabWordSerializer(serializers.ModelSerializer):
 class KabWordWithCategorySerializer(serializers.ModelSerializer):
     translations = TranslationWithCategorySerializer(read_only=True, many=Translation)
     borrowed_from = KabWordBorrowedFromSerializer(read_only=True)
-    
+
     class Meta:
         model = KabWord
         fields = ['word', 'slug', 'letter', 'borrowed_from', 'translations']

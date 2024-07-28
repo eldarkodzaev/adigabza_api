@@ -23,7 +23,7 @@ class KabRusDictionaryViewSet(viewsets.ReadOnlyModelViewSet):
     @method_decorator(cache_page(CACHE_24_HOURS))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-    
+
     def list(self, request, *args, **kwargs):
         if word := request.GET.get('word'):
             queryset = self.queryset.filter(word__istartswith=word)
@@ -94,4 +94,9 @@ class RandomKabWordApiView(generics.RetrieveAPIView):
     def get_object(self):
         random_word = KabWord.objects.prefetch_related('translations').order_by('?').first()
         return random_word
+    
+
+class BorrowedWordsApiView(generics.ListAPIView):
+    def get_queryset(self):
+        return super().get_queryset()
     
